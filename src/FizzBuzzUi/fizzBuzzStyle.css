@@ -5,6 +5,11 @@
     height: 100%;
 }
 
+.InfoTextStyle {
+    text-align: center;
+    max-width: 600px;
+}
+
 .InputContainer {
     display: flex;
     justify-content: space-between;
@@ -44,8 +49,7 @@
     color: red;
 }
 
-.OutputContainer {
-    height: 100%;
+.TextOutputContainer {
     max-width: 100%;
     overflow: scroll;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
@@ -73,4 +77,12 @@
 }
 .BuzzStyle {
     color: var(--v-color2);
+}
+
+.CanvasContainerStyle {
+    margin: 20px;
+}
+.CanvasContainerStyle > div {
+    display: flex;
+    justify-content: center;
 }

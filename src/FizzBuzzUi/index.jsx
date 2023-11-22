@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { lazy, useEffect, useState } from "react"
 import { fizzBuzzHandler, FIZZ, BUZZ } from "../FizzBuzzLogic/FizzBuzz"
 import "./globalStyle.css"
 import "./fizzBuzzStyle.css"
-import Chart from "./Chart"
+import ResultViewer from "./ResultViewer"
 
 function MainPage() {
     const [gameVariables, setGameVariables] = useState({
@@ -10,21 +10,23 @@ function MainPage() {
         fizzDivider: 3,
         buzzDivider: 5,
         fizzBuzzOutput: [],
+        errorMessage: "",
     })
-    const { target, fizzDivider, buzzDivider, fizzBuzzOutput } = gameVariables
-    const [errorMessage, setErrorMessage] = useState("")
+    const { target, fizzDivider, buzzDivider, fizzBuzzOutput, errorMessage } = gameVariables
 
     function handleGameVariableChange(obj) {
         setGameVariables((prevItem) => ({ ...prevItem, ...obj }))
     }
 
+    //Load FizzBuzzData on Button Press
     function runFizzBuzzHandler() {
-        setErrorMessage("")
+        handleGameVariableChange({ errorMessage: "", fizzBuzzOutput: [] })
+
         try {
             const fizzBuzzOutput = fizzBuzzHandler(target, fizzDivider, buzzDivider)
             handleGameVariableChange({ fizzBuzzOutput })
-        } catch (error) {
-            setErrorMessage(error.message)
+        } catch (e) {
+            handleGameVariableChange({ errorMessage: e.message })
         }
     }
 
@@ -34,9 +36,11 @@ function MainPage() {
                 <span className="FizzStyle">{FIZZ}</span>
                 <span className="BuzzStyle">{BUZZ}</span>++
             </h1>
-            <p>
-                Info: Gib für das bekannte Spiel FizzBuzz deine eigenen Regeln vor und sieh dir das Ergebnis an! Es
-                können nur natürliche Zahlen verwendert werden (1,2,3,...)
+            <p className="InfoTextStyle">
+                <i>
+                    Info: Gib für das bekannte Spiel FizzBuzz deine eigenen Regeln vor und sieh dir das Ergebnis an! Es
+                    können nur natürliche Zahlen verwendert werden (1, 2, 3, ...)
+                </i>
             </p>
             <div>
                 <div className="InputContainer">
@@ -81,61 +85,11 @@ function MainPage() {
                 </button>
             </div>
 
-            {errorMessage ? <p className="ErrorStyle"> errorMessage </p> : null}
+            {errorMessage ? <p className="ErrorStyle"> {errorMessage} </p> : null}
 
-            <p>Ergebnis:</p>
-            <div className="ResultContainer">
-                <Chart data={fizzBuzzOutput} />
-                <div className="OutputContainer">
-                    <ol className="ListStyle">
-                        {fizzBuzzOutput.map((el, i) => (
-                            <li key={i}>{fizzBuzzColorizer(el)}</li>
-                        ))}
-                    </ol>
-                </div>
-            </div>
+            <ResultViewer fizzBuzzOutput={fizzBuzzOutput} />
         </div>
     )
 }
-
-function fizzBuzzColorizer(el) {
-    switch (true) {
-        case new RegExp(FIZZ + BUZZ).test(el):
-            return (
-                <>
-                    <span className="FizzStyle">{FIZZ}</span>
-                    <span className="BuzzStyle">{BUZZ}</span>
-                    {plusColorizer(el)}
-                </>
-            )
-        case new RegExp(FIZZ).test(el):
-            return (
-                <>
-                    <span className="FizzStyle">{FIZZ}</span>
-                    {plusColorizer(el)}
-                </>
-            )
-        case new RegExp(BUZZ).test(el):
-            return (
-                <>
-                    <span className="BuzzStyle">{BUZZ}</span>
-                    {plusColorizer(el)}
-                </>
-            )
-        default:
-            return <span className="ListElementStyle">{el}</span>
-    }
-}
-
-function plusColorizer(el) {
-    if (el && el.match(/\++/)) {
-        return el
-            .match(/\++/)[0]
-            .split("")
-            .map((plus, i) => <span style={{ color: colorArray[i % 2] }}>{plus}</span>)
-    }
-}
-
-const colorArray = ["var(--v-color2)", "var(--v-color1)"]
 
 export default MainPage
