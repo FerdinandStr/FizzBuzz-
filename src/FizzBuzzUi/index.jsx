@@ -2,6 +2,7 @@ import { useState } from "react"
 import { fizzBuzzHandler, FIZZ, BUZZ } from "../FizzBuzzLogic/FizzBuzz"
 import "./globalStyle.css"
 import "./fizzBuzzStyle.css"
+import Chart from "./Chart"
 
 function MainPage() {
     const [gameVariables, setGameVariables] = useState({
@@ -18,10 +19,10 @@ function MainPage() {
     }
 
     function runFizzBuzzHandler() {
+        setErrorMessage("")
         try {
-            const output = fizzBuzzHandler(target, fizzDivider, buzzDivider)
-            handleGameVariableChange({ fizzBuzzOutput: output })
-            setErrorMessage("")
+            const fizzBuzzOutput = fizzBuzzHandler(target, fizzDivider, buzzDivider)
+            handleGameVariableChange({ fizzBuzzOutput })
         } catch (error) {
             setErrorMessage(error.message)
         }
@@ -83,12 +84,15 @@ function MainPage() {
             {errorMessage ? <p className="ErrorStyle"> errorMessage </p> : null}
 
             <p>Ergebnis:</p>
-            <div className="OutputContainer">
-                <ol className="ListStyle">
-                    {fizzBuzzOutput.map((el, i) => (
-                        <li key={i}>{fizzBuzzColorizer(el)}</li>
-                    ))}
-                </ol>
+            <div className="ResultContainer">
+                <Chart data={fizzBuzzOutput} />
+                <div className="OutputContainer">
+                    <ol className="ListStyle">
+                        {fizzBuzzOutput.map((el, i) => (
+                            <li key={i}>{fizzBuzzColorizer(el)}</li>
+                        ))}
+                    </ol>
+                </div>
             </div>
         </div>
     )
