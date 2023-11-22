@@ -1,4 +1,4 @@
-import { fizzBuzzHandler } from "../../src/FizzBuzz/FizzBuzz"
+import { fizzBuzzHandler } from "../../src/FizzBuzzLogic/FizzBuzz"
 
 describe("Fizz Buzz Handler", () => {
     it("returns natural numbers from 1 to target 't' in an array", () => {

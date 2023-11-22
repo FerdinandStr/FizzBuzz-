@@ -1,18 +1,18 @@
 function fizzBuzzHandler(target, fizzDivisor, buzzDivisor) {
-    let output = []
-
     if (!isInputAccepted(target, fizzDivisor, buzzDivisor)) {
-        throw new TypeError()
+        throw new TypeError("Fehlerhafte Eingabe, bitte verwende nur natürliche Zahlen als Eingabe!")
     }
 
-    for (let i = 1; i <= target; i++) {
-        const lastNaNElement = output.findLast((el) => isNaN(el))
+    let output = []
 
+    for (let i = 1; i <= target; i++) {
         let nextOutput = getNextBasicOutput(i, fizzDivisor, buzzDivisor)
 
-        if (checkIfPreviousElementMatchesNext(lastNaNElement, nextOutput)) {
-            console.log("CHECK", lastNaNElement, nextOutput)
-            nextOutput = lastNaNElement + "+"
+        //get lastTextOutput in output and check if nextOutput text matches
+        const lastTextOutput = output.findLast((el) => isNaN(el))
+        //if true, take lastTextOutput and add "+" as counter
+        if (checkIfLastTextOutputMatchesNext(lastTextOutput, nextOutput)) {
+            nextOutput = lastTextOutput + "+"
         }
 
         output = [...output, nextOutput]
@@ -56,7 +56,7 @@ function isNaturalNumber(number) {
     return false
 }
 
-function checkIfPreviousElementMatchesNext(previousElement, matcher) {
+function checkIfLastTextOutputMatchesNext(previousElement, matcher) {
     const regex = new RegExp("^" + matcher + "(?!\\w)", "g")
     if (typeof previousElement === "string" && regex.test(previousElement)) {
         return true
