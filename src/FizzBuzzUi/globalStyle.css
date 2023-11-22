@@ -1,0 +1,57 @@
+:root {
+    --bg-main: #fff;
+    /* globale Textfarbe */
+    --text-main-color: #222;
+    /* alternative Textfarbe */
+    --v-color1: #fdca00;
+    --v-color2: #1a428a;
+    /* >>> hier weitere gleichartige Textfarb-variablen hinzufügen für z.B. Header, Links, abgedunkelter text... */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    padding: 25px;
+}
+
+html {
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--text-main-color);
+    font-size: 100%;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: Arial;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: var(--text-alt-color);
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    color: var(--text-main-color);
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+
+    transition: 0.15s ease-in-out;
+}
+a:hover {
+    text-decoration: underline;
+}
+#root {
+    height: 100%;
+}

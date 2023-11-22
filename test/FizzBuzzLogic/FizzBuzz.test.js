@@ -33,18 +33,7 @@ describe("Fizz Buzz Handler", () => {
 
         const output = fizzBuzzHandler(target, fizzDivisor, buzzDivisor)
 
-        expect(output).toEqual([
-            1,
-            2,
-            3,
-            "Fizz",
-            "Buzz",
-            6,
-            7,
-            "Fizz",
-            9,
-            "Buzz",
-        ])
+        expect(output).toEqual([1, 2, 3, "Fizz", "Buzz", 6, 7, "Fizz", 9, "Buzz"])
     })
 
     it("prints FizzBuzz if the number is divisible by both fizzDivisor and buzzDivisor", () => {
@@ -54,23 +43,7 @@ describe("Fizz Buzz Handler", () => {
 
         const output = fizzBuzzHandler(target, fizzDivisor, buzzDivisor)
 
-        expect(output).toEqual([
-            1,
-            2,
-            "Fizz",
-            4,
-            "Buzz",
-            "Fizz",
-            7,
-            8,
-            "Fizz+",
-            "Buzz",
-            11,
-            "Fizz",
-            13,
-            14,
-            "FizzBuzz",
-        ])
+        expect(output).toEqual([1, 2, "Fizz", 4, "Buzz", "Fizz", 7, 8, "Fizz+", "Buzz", 11, "Fizz", 13, 14, "FizzBuzz"])
     })
 
     it("throws an error if one parameter is not a natural number", () => {
@@ -81,13 +54,7 @@ describe("Fizz Buzz Handler", () => {
         const target = 5
         const fizzDivisor = 1
 
-        expect(fizzBuzzHandler(target, fizzDivisor)).toEqual([
-            "Fizz",
-            "Fizz+",
-            "Fizz++",
-            "Fizz+++",
-            "Fizz++++",
-        ])
+        expect(fizzBuzzHandler(target, fizzDivisor)).toEqual(["Fizz", "Fizz+", "Fizz++", "Fizz+++", "Fizz++++"])
     })
 
     it("FizzBuzz works also if buzzDivisor is smaller than FizzDivisor", () => {
@@ -95,11 +62,10 @@ describe("Fizz Buzz Handler", () => {
         const fizzDivisor = 2
         const buzzDivisor = 1
 
-        expect(fizzBuzzHandler(target, fizzDivisor, buzzDivisor)).toEqual([
-            "Buzz",
-            "FizzBuzz",
-            "Buzz",
-            "FizzBuzz",
-        ])
+        expect(fizzBuzzHandler(target, fizzDivisor, buzzDivisor)).toEqual(["Buzz", "FizzBuzz", "Buzz", "FizzBuzz"])
+    })
+
+    it("will throw an Error if target is > 10000", () => {
+        expect(() => fizzBuzzHandler(10001)).toThrow(Error)
     })
 })

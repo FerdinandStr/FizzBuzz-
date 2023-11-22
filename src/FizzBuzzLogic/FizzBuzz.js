@@ -1,7 +1,8 @@
+const FIZZ = "Fizz"
+const BUZZ = "Buzz"
+
 function fizzBuzzHandler(target, fizzDivisor, buzzDivisor) {
-    if (!isInputAccepted(target, fizzDivisor, buzzDivisor)) {
-        throw new TypeError("Fehlerhafte Eingabe, bitte verwende nur natürliche Zahlen als Eingabe!")
-    }
+    checkInput(target, fizzDivisor, buzzDivisor)
 
     let output = []
 
@@ -23,30 +24,32 @@ function fizzBuzzHandler(target, fizzDivisor, buzzDivisor) {
 
 function getNextBasicOutput(i, fizzDivisor, buzzDivisor) {
     if (i % fizzDivisor === 0 && i % buzzDivisor === 0) {
-        return "FizzBuzz"
+        return FIZZ + BUZZ
     }
 
     if (i % fizzDivisor === 0) {
-        return "Fizz"
+        return FIZZ
     }
 
     if (i % buzzDivisor === 0) {
-        return "Buzz"
+        return BUZZ
     }
 
     return i
 }
 
-function isInputAccepted(target, fizzDivisor, buzzDivisor) {
-    //if one of the inputs is not a natural number (1, 2, 3, ...) return true
+function checkInput(target, fizzDivisor, buzzDivisor) {
+    //if one of the inputs is not a natural number (1, 2, 3, ...) throw TypeError
     if (
         !isNaturalNumber(target) ||
         (fizzDivisor !== undefined && !isNaturalNumber(fizzDivisor)) ||
         (buzzDivisor !== undefined && !isNaturalNumber(buzzDivisor))
     ) {
-        return false
+        throw new TypeError("Fehlerhafte Eingabe, bitte verwende nur natürliche Zahlen als Eingabe!")
     }
-    return true
+    if (target > 10000) {
+        throw new Error("Der Zielwert darf 10000 nicht überschreiten, wähle eine kleinere Zahl!")
+    }
 }
 
 function isNaturalNumber(number) {
@@ -64,4 +67,4 @@ function checkIfLastTextOutputMatchesNext(previousElement, matcher) {
     return false
 }
 
-export { fizzBuzzHandler }
+export { fizzBuzzHandler, FIZZ, BUZZ }
